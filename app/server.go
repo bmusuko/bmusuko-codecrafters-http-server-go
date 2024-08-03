@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -32,5 +33,21 @@ func main() {
 }
 
 func handleClient(conn net.Conn) {
-	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+	// Read data
+	buf := make([]byte, 1024)
+	n, err := conn.Read(buf)
+	if err != nil {
+		fmt.Printf("failed to read data\n")
+		return
+	}
+
+	rawStr := string(buf[:n])
+	fmt.Printf("raw str %s\n", strconv.Quote(rawStr))
+
+	req := newRequest(rawStr)
+	if req.path == "/" {
+		conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+	} else {
+		conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
+	}
 }
