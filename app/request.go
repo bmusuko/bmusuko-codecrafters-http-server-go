@@ -64,7 +64,7 @@ func (r *request) setHeader(strs []string) {
 		case "Content-Type":
 			r.contentType = parts[1]
 		case "Accept-Encoding":
-			r.contentType = parts[1]
+			r.acceptEncoding = parts[1]
 		default:
 			fmt.Printf("unknown key val %s\n", str)
 		}
