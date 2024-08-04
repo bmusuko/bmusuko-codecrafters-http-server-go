@@ -11,11 +11,12 @@ type request struct {
 	version string
 
 	// header
-	host          string
-	userAgent     string
-	accept        string
-	contentLength string
-	contentType   string
+	host           string
+	userAgent      string
+	accept         string
+	contentLength  string
+	contentType    string
+	acceptEncoding string
 
 	// body
 	body string
@@ -61,6 +62,8 @@ func (r *request) setHeader(strs []string) {
 		case "Content-Length":
 			r.contentLength = parts[1]
 		case "Content-Type":
+			r.contentType = parts[1]
+		case "Accept-Encoding":
 			r.contentType = parts[1]
 		default:
 			fmt.Printf("unknown key val %s\n", str)

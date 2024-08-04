@@ -6,6 +6,8 @@ import (
 )
 
 type response struct {
+	req request
+
 	version    string
 	statusCode int
 	reason     string
@@ -40,7 +42,7 @@ func new404Response() response {
 	}
 }
 
-func newSuccessResponseWithBody(contentType, body string) response {
+func newSuccessResponseWithBody(req request, contentType, body string) response {
 	return response{
 		version:       "HTTP/1.1",
 		statusCode:    200,
@@ -65,6 +67,10 @@ func (r response) toByte() []byte {
 	if r.contentLength != 0 {
 		header += fmt.Sprintf("Content-Length: %d\r\n", r.contentLength)
 	}
+	if r.req.acceptEncoding == "gzip" {
+		header += fmt.Sprintf("Content-Encoding: %s\r\n", r.req.acceptEncoding)
+	}
+
 	if len(header) > 0 {
 		str += header + "\r\n"
 	} else {

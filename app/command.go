@@ -7,11 +7,11 @@ import (
 
 func handleEcho(req request) response {
 	msg := strings.TrimPrefix(req.path, "/echo/")
-	return newSuccessResponseWithBody("text/plain", msg)
+	return newSuccessResponseWithBody(req, "text/plain", msg)
 }
 
 func handleUserAgent(req request) response {
-	return newSuccessResponseWithBody("text/plain", req.userAgent)
+	return newSuccessResponseWithBody(req, "text/plain", req.userAgent)
 }
 
 func handleFile(req request) response {
@@ -27,7 +27,7 @@ func handleGetFile(req request) response {
 	if err != nil {
 		return new404Response()
 	}
-	return newSuccessResponseWithBody("application/octet-stream", string(data))
+	return newSuccessResponseWithBody(req, "application/octet-stream", string(data))
 }
 
 func handleCreateFile(req request) response {
