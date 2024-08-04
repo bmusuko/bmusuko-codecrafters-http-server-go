@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -45,9 +46,13 @@ func handleClient(conn net.Conn) {
 	fmt.Printf("raw str %s\n", strconv.Quote(rawStr))
 
 	req := newRequest(rawStr)
+	var res response
 	if req.path == "/" {
-		conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+		res = newSuccessResponse()
+	} else if strings.HasPrefix(req.path, "/echo/") {
+		res = handleEcho(req.path)
 	} else {
-		conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
+		res = new404Response()
 	}
+	conn.Write(res.toByte())
 }
