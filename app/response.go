@@ -32,12 +32,12 @@ func new404Response() response {
 	}
 }
 
-func newSuccessResponseWithBody(body string) response {
+func newSuccessResponseWithBody(contentType, body string) response {
 	return response{
 		version:       "HTTP/1.1",
 		statusCode:    200,
 		reason:        "OK",
-		contentType:   "text/plain",
+		contentType:   contentType,
 		contentLength: len(body),
 		body:          body,
 	}
