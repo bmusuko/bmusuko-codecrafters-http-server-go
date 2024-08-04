@@ -59,9 +59,10 @@ func (r response) toByte() []byte {
 	}
 	if len(header) > 0 {
 		str += header + "\r\n"
+	} else {
+		str += "\r\n"
 	}
 
-	str += "\r\n"
 	if len(r.body) > 0 {
 		str += r.body
 	}
