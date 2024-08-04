@@ -1,13 +1,18 @@
 package main
 
 import (
+	"bytes"
+	"compress/gzip"
 	"os"
 	"strings"
 )
 
 func handleEcho(req request) response {
 	msg := strings.TrimPrefix(req.path, "/echo/")
-	return newSuccessResponseWithBody(req, "text/plain", msg)
+	if !contains(req.acceptEncoding, "gzip") {
+		return newSuccessResponseWithBody(req, "text/plain", msg)
+	}
+	return newSuccessResponseWithBody(req, "text/plain", gzipString(msg))
 }
 
 func handleUserAgent(req request) response {
@@ -37,4 +42,21 @@ func handleCreateFile(req request) response {
 		return new404Response()
 	}
 	return newCreatedResponse()
+}
+
+func gzipString(input string) string {
+	var compressedData bytes.Buffer
+	gz := gzip.NewWriter(&compressedData)
+
+	_, err := gz.Write([]byte(input))
+	if err != nil {
+		os.Exit(-1)
+	}
+
+	err = gz.Close()
+	if err != nil {
+		os.Exit(-1)
+	}
+
+	return compressedData.String()
 }
