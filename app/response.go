@@ -24,6 +24,14 @@ func newSuccessResponse() response {
 	}
 }
 
+func newCreatedResponse() response {
+	return response{
+		version:    "HTTP/1.1",
+		statusCode: 201,
+		reason:     "Created",
+	}
+}
+
 func new404Response() response {
 	return response{
 		version:    "HTTP/1.1",
