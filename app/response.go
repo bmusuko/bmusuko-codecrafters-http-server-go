@@ -58,7 +58,7 @@ func (r response) toByte() []byte {
 		header += fmt.Sprintf("Content-Length: %d\r\n", r.contentLength)
 	}
 	if len(header) > 0 {
-		str += "\r\n" + header + "\r\n"
+		str += header + "\r\n"
 	}
 
 	str += "\r\n"
