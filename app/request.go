@@ -16,7 +16,7 @@ type request struct {
 	accept         string
 	contentLength  string
 	contentType    string
-	acceptEncoding string
+	acceptEncoding []string
 
 	// body
 	body string
@@ -64,7 +64,7 @@ func (r *request) setHeader(strs []string) {
 		case "Content-Type":
 			r.contentType = parts[1]
 		case "Accept-Encoding":
-			r.acceptEncoding = parts[1]
+			r.acceptEncoding = strings.Split(parts[1], ", ")
 		default:
 			fmt.Printf("unknown key val %s\n", str)
 		}
