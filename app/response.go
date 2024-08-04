@@ -70,7 +70,7 @@ func (r response) toByte() []byte {
 		header += fmt.Sprintf("Content-Length: %d\r\n", r.contentLength)
 	}
 	if contains(r.req.acceptEncoding, "gzip") {
-		header += fmt.Sprintf("Content-Encoding: %s\r\n", r.req.acceptEncoding)
+		header += fmt.Sprintf("Content-Encoding: %s\r\n", "gzip")
 	}
 
 	if len(header) > 0 {
