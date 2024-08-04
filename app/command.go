@@ -2,8 +2,8 @@ package main
 
 import "strings"
 
-func handleEcho(str string) response {
-	msg := strings.TrimPrefix(str, "/echo/")
+func handleEcho(req request) response {
+	msg := strings.TrimPrefix(req.path, "/echo/")
 	return newSuccessResponseWithBody(msg)
 }
 

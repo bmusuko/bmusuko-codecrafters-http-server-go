@@ -52,7 +52,7 @@ func handleClient(conn net.Conn) {
 	if req.path == "/" {
 		res = newSuccessResponse()
 	} else if strings.HasPrefix(req.path, "/echo/") {
-		res = handleEcho(req.path)
+		res = handleEcho(req)
 	} else if req.path == "/user-agent" {
 		res = handleUserAgent(req)
 	} else {
