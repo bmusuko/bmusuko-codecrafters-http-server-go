@@ -52,10 +52,10 @@ func (r response) toByte() []byte {
 
 	header := ""
 	if r.contentType != "" {
-		header += fmt.Sprintf("Content-Type: %s", r.contentType)
+		header += fmt.Sprintf("Content-Type: %s\r\n", r.contentType)
 	}
 	if r.contentLength != 0 {
-		header += fmt.Sprintf("Content-Length: %d", r.contentLength)
+		header += fmt.Sprintf("Content-Length: %d\r\n", r.contentLength)
 	}
 	if len(header) > 0 {
 		str += "\r\n" + header + "\r\n"
