@@ -45,6 +45,7 @@ func new404Response() response {
 
 func newSuccessResponseWithBody(req request, contentType, body string) response {
 	return response{
+		req:           req,
 		version:       "HTTP/1.1",
 		statusCode:    200,
 		reason:        "OK",
