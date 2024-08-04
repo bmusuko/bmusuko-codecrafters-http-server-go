@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -80,6 +81,8 @@ func (r response) toByte() []byte {
 	if len(r.body) > 0 {
 		str += r.body
 	}
+
+	fmt.Printf("sent response %s\b", strconv.Quote(str))
 
 	return []byte(str)
 }
