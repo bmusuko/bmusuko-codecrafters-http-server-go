@@ -46,6 +46,8 @@ func handleClient(conn net.Conn) {
 	fmt.Printf("raw str %s\n", strconv.Quote(rawStr))
 
 	req := newRequest(rawStr)
+	fmt.Printf("parsed request %q\n", req)
+
 	var res response
 	if req.path == "/" {
 		res = newSuccessResponse()
