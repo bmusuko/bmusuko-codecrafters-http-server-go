@@ -36,13 +36,13 @@ func (r *request) setHeader(strs []string) {
 		}
 
 		parts := strings.Split(str, ": ")
-		key := strings.ToLower(parts[0])
+		key := parts[0]
 		switch key {
-		case "host":
+		case "Host":
 			r.host = parts[1]
-		case "user-agent":
+		case "User-Agent":
 			r.userAgent = parts[1]
-		case "accept":
+		case "Accept":
 			r.accept = parts[1]
 		default:
 			fmt.Printf("unknown key val %s\n", str)

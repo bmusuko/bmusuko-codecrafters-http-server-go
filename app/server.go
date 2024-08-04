@@ -53,6 +53,8 @@ func handleClient(conn net.Conn) {
 		res = newSuccessResponse()
 	} else if strings.HasPrefix(req.path, "/echo/") {
 		res = handleEcho(req.path)
+	} else if req.path == "/user-agent" {
+		res = handleUserAgent(req)
 	} else {
 		res = new404Response()
 	}
